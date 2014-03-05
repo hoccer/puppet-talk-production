@@ -44,8 +44,9 @@ class talk-production::install {
 
   # additional packages
   package { ['pwgen', 'dpkg-dev', 'debhelper', 'libpcre3-dev', 'libxslt-dev', 
-    'libgd2-xpm', 'libgd2-xpm-dev', 'libgeoip-dev', 'libpam0g-dev', 
-    'libluajit-5.1-dev', 'libperl-dev']:
+    'libgd2-noxpm', 'libgd2-noxpm-dev', 'libgeoip-dev', 'libpam0g-dev',
+    'libluajit-5.1-dev', 'libperl-dev', 'autotools-dev', 'liblua5.1-dev',
+    'libmhash-dev', 'libssl-dev', 'libexpat-dev']:
     ensure => installed;
   }
 
@@ -84,9 +85,10 @@ class talk-production::install {
   exec { '/root/nginx-install/install.sh':
     require => [File['/root/nginx-install', '/root/nginx-install/install.sh', '/root/nginx-install/nginx-1.3.14-no_buffer-v7.patch', 
       '/root/nginx-install/nginx_1.4.1-1.debian.tar.gz', '/root/nginx-install/nginx_1.4.1-1.dsc', '/root/nginx-install/nginx_1.4.1.orig.tar.gz'],
-      Package['dpkg-dev', 'debhelper', 'libpcre3-dev', 'libxslt-dev', 'libgd2-xpm', 'libgd2-xpm-dev', 'libgeoip-dev', 'libpam0g-dev', 
-    'libluajit-5.1-dev', 'libperl-dev']],
-    path => '/bin:/usr/bin',
+      Package['dpkg-dev', 'debhelper', 'libpcre3-dev', 'libxslt-dev', 'libgd2-noxpm', 'libgd2-noxpm-dev', 'libgeoip-dev', 'libpam0g-dev',
+    'libluajit-5.1-dev', 'libperl-dev', 'autotools-dev', 'liblua5.1-dev', 'libmhash-dev', 'libssl-dev', 'libexpat-dev']],
+    path => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    creates => "/root/nginx-install/nginx-full_1.4.1-1_amd64.deb",
   }
 
   # include helper modules
