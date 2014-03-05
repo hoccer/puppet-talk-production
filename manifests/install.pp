@@ -34,8 +34,7 @@ class talk-production::install {
   class {'::mongodb::globals':
     manage_package_repo => true,
   }->
-  class {'::mongodb::server': }->
-  class {'::mongodb::client': }
+  class {'::mongodb::server': }
 
 
   # VIM
@@ -91,9 +90,7 @@ class talk-production::install {
   }
 
   # include helper modules
-  include locales
   include postgresql::server
-  # include mongodb
   include java7
   include vim
 

@@ -4,6 +4,8 @@ class talk-production::config {
     locales => ['en_US.UTF-8 UTF-8']
   }
 
+  include locales
+
   # setup required users
   user { 'deployment':
     ensure     => present,
