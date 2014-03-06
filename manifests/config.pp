@@ -6,13 +6,7 @@ class talk-production::config {
 
   include locales
 
-  # setup required users
-  user { 'deployment':
-    ensure     => present,
-    groups     => ['adm','admin', 'sudo'],
-    managehome => true,
-    shell      => '/bin/bash',
-  }
+  # setup service user
   user { 'talk':
     ensure     => present,
     groups     => [],
@@ -20,4 +14,10 @@ class talk-production::config {
     shell      => '/bin/bash',
   }
   
+  # Nginx configuration
+  file { '/etc/nginx/nginx.conf':
+    ensure => present,
+    source => 'puppet:///modules/talk-production/nginx/nginx.conf',
+    require => Exec['/root/nginx-install/install.sh'],
+  }
 }
