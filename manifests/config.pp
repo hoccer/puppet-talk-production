@@ -72,6 +72,11 @@ class talk-production::config {
     source  => 'puppet:///modules/talk-production/talkserver/sysctl.conf',
   }
 
+  # filecache configuration
+  file { '/etc/init/filecache.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/talk-production/filecache/filecache.conf',
+  }
 
 
 }
