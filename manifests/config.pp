@@ -22,10 +22,9 @@ class talk-production::config {
     notify  => Service['nginx'],
   }
 
-  augeas{ "nginx-defaults" :
-    context => "/etc/default/nginx",
-    changes => "set ULIMIT '-n 202000'",
-    onlyif  => "match other_value size > 0",
+  file { "/etc/default/nginx" :
+    ensure  => present,
+    source  => 'puppet:///modules/talk-production/nginx/defaults',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
   }
@@ -61,5 +60,18 @@ class talk-production::config {
   service { 'nginx':
     ensure => running,
   }
+
+  # talkserver configuration
+  file { '/etc/init/talkserver.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/talk-production/talkserver/talkserver.conf',
+  }
+
+  file { '/etc/sysctl.d/60-talkserver.conf':
+    ensure  => present,
+    source  => 'puppet:///modules/talk-production/talkserver/sysctl.conf',
+  }
+
+
 
 }
