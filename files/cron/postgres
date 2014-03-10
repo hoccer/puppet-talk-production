@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# backup all postgres databases
+
+date=`date +%u`
+dir=/srv/backup/postgresql
+
+cd $dir || exit 1
+
+su -c "pg_dumpall -o -f $dir/all_postgres_dbs-$date.sql" postgres \
+	&& bzip2 -f $dir/all_postgres_dbs-$date.sql

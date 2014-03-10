@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# backup all mongodb data
+
+date=`date +%u`
+dir=/srv/backup/mongodb
+
+cd $dir || exit 1
+
+rm -rf dump-$date
+mongodump -o dump-$date

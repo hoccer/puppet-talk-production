@@ -6,6 +6,7 @@ class talk-production::config {
 
   include locales
 
+
   # setup service user
   user { 'talk':
     ensure     => present,
@@ -13,7 +14,8 @@ class talk-production::config {
     managehome => true,
     shell      => '/bin/bash',
   }
-  
+
+
   # Nginx configuration
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
@@ -61,6 +63,7 @@ class talk-production::config {
     ensure => running,
   }
 
+
   # talkserver configuration
   file { '/etc/init/talkserver.conf':
     ensure  => present,
@@ -78,5 +81,18 @@ class talk-production::config {
     source  => 'puppet:///modules/talk-production/filecache/filecache.conf',
   }
 
+
+  # backup scripts
+  file { '/etc/cron.daily/postgres':
+    ensure  => present,
+    mode    => '0755',
+    source  => 'puppet:///modules/talk-production/cron/postgres',
+  }
+
+  file { '/etc/cron.daily/mongodb':
+    ensure  => present,
+    mode    => '0755',
+    source  => 'puppet:///modules/talk-production/cron/mongodb',
+  }
 
 }
