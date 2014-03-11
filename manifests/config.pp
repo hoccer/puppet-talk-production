@@ -82,6 +82,24 @@ class talk-production::config {
   }
 
 
+  # filecache restart script
+  file { '/root/restart_filecache.sh':
+    ensure  => present,
+    mode    => '0755',
+    source  => 'puppet:///modules/talk-production/filecache/restart_filecache.sh',
+  }
+
+  file { 'restart_filecache':
+    path    => '/etc/cron.d/restart_filecache',
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => 0644,
+    require => File['/root/restart_filecache.sh'],
+    content => "*/5 * * * * root /root/restart_filecache.sh\n";
+  }
+
+
   # backup scripts
   file { '/etc/cron.daily/postgres':
     ensure  => present,
