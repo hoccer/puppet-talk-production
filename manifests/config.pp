@@ -24,6 +24,12 @@ class talk-production::config {
     notify  => Service['nginx'],
   }
 
+  file { '/etc/nginx/sites-enabled/default':
+    ensure => absent,
+    require => Exec['/root/nginx-install/install.sh'],
+    notify  => Service['nginx'],
+  }
+
   file { "/etc/default/nginx" :
     ensure  => present,
     source  => 'puppet:///modules/talk-production/nginx/defaults',
