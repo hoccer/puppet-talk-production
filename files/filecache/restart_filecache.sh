@@ -5,7 +5,7 @@ service filecache status | grep start >/dev/null
 
 if [ "$?" -eq "0" ]; then
   echo "filecache upstart job is running."
-  curl -k -s https://filecache1.talk.hoccer.de/status >/dev/null
+  curl -k -s -f -m 5 https://filecache1.talk.hoccer.de/status >/dev/null
 
   if [ "$?" -ne "0" ]; then
     echo "filecache service seems to hang. Restarting."
