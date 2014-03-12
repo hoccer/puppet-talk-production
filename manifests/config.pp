@@ -24,8 +24,8 @@ class talk-production::config {
   }
 
   # add users to RVM group
-  rvm::system_user { 'talk':
-    require => User['talk'],
+  rvm::system_user { 'deployment':
+    require => User['deployment'],
   }
 
   rvm::system_user { 'riemann':
