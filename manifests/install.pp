@@ -1,13 +1,5 @@
 class talk-production::install {
   
-  # Ensure that apt-get update is called
-  # automatically when a package is about to be installed
-  exec { 'apt-update':
-    command => '/usr/bin/apt-get update'
-  }
-
-  Exec['apt-update'] -> Package <| |>
-
   # Postgresql
   # see https://forge.puppetlabs.com/puppetlabs/postgresql
   class { 'postgresql::server':
@@ -91,11 +83,17 @@ class talk-production::install {
     creates => "/root/nginx-install/nginx-full_1.4.1-1_amd64.deb",
   }
 
+  class { '::ntp':
+    servers => [ 'pool.ntp.org' ],
+  }
+
+
   # include helper modules
   include postgresql::server
   include java7
   include vim
   include rvm
+  include ntp
 
 }
 
