@@ -20,6 +20,9 @@ mod 'saz/locales'
 mod 'java7',
     :git => 'https://github.com/softek/puppet-java7.git'
 
+mod 'rvm',
+	:git => 'https://github.com/blt04/puppet-rvm.git'
+
 # convenience
 
 mod 'saz/vim'

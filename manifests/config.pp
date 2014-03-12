@@ -7,7 +7,7 @@ class talk-production::config {
   include locales
 
 
-  # setup service user
+  # service user for talkserver & filecache
   user { 'talk':
     ensure     => present,
     groups     => [],
@@ -15,6 +15,22 @@ class talk-production::config {
     shell      => '/bin/bash',
   }
 
+  # service user for riemann metrics
+  user { 'riemann':
+    ensure     => present,
+    groups     => [],
+    managehome => true,
+    shell      => '/bin/bash',
+  }
+
+  # add users to RVM group
+  rvm::system_user { 'talk':
+    require => User['talk'],
+  }
+
+  rvm::system_user { 'riemann':
+    require => User['riemann'],
+  }
 
   # Nginx configuration
   file { '/etc/nginx/nginx.conf':

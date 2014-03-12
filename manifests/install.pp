@@ -95,6 +95,7 @@ class talk-production::install {
   include postgresql::server
   include java7
   include vim
+  include rvm
 
 }
 
