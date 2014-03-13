@@ -113,7 +113,7 @@ class talk-production::config {
     group   => 'root',
     mode    => 0644,
     require => File['/root/restart_filecache.sh'],
-    content => "*/5 * * * * root /root/restart_filecache.sh\n";
+    content => "* * * * * root /root/restart_filecache.sh\n";
   }
 
 
