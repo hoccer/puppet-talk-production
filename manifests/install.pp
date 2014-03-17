@@ -92,6 +92,7 @@ class talk-production::install {
 
   # riemann-net & riemann-health
   class { 'riemann::tools':
+    host            => 'monitoring-server.hoccer.de',
     rvm_ruby_string => 'ruby-2.0.0-p353'
   }
 
