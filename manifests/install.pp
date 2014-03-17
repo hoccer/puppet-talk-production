@@ -83,8 +83,16 @@ class talk-production::install {
     creates => "/root/nginx-install/nginx-full_1.4.1-1_amd64.deb",
   }
 
+
+  # NTP
   class { '::ntp':
     servers => [ 'pool.ntp.org' ],
+  }
+
+
+  # riemann-net & riemann-health
+  class { 'riemann::tools':
+    rvm_ruby_string => 'ruby-2.0.0-p353'
   }
 
 
@@ -94,6 +102,7 @@ class talk-production::install {
   include vim
   include rvm
   include ntp
+  include riemann::tools
 
 }
 

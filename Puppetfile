@@ -23,6 +23,9 @@ mod 'java7',
 mod 'rvm',
 	:git => 'https://github.com/blt04/puppet-rvm.git'
 
+mod 'garethr/riemann',
+    :git => 'https://github.com/artcom/garethr-riemann.git'
+
 # convenience
 
 mod 'saz/vim'
