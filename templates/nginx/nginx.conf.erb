@@ -56,7 +56,7 @@ http {
 
     server {
         listen 443;
-        server_name filecache.talk.hoccer.de filecache1.talk.hoccer.de;
+        server_name filecache.talk.hoccer.de <%= @filecache_fqdn %>;
 
         root html;
         index index.html index.html;
@@ -95,7 +95,7 @@ http {
 
     server {
         listen 443;
-        server_name server.talk.hoccer.de server1.talk.hoccer.de;
+        server_name server.talk.hoccer.de <%= @talkserver_fqdn %>;
 
         root html;
             index index.html index.html;

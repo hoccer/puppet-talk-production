@@ -30,19 +30,25 @@ class talk-production::config {
   # Nginx configuration
   file { '/etc/nginx/nginx.conf':
     ensure  => present,
-    source  => 'puppet:///modules/talk-production/nginx/nginx.conf',
+    owner   => 'root',
+    group   => 'root',
+    content => template('talk-production/nginx/nginx.conf.erb'),
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
   }
 
   file { '/etc/nginx/sites-enabled/default':
-    ensure => absent,
+    ensure  => absent,
+    owner   => 'root',
+    group   => 'root',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
   }
 
   file { "/etc/default/nginx" :
     ensure  => present,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/talk-production/nginx/defaults',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
@@ -50,6 +56,8 @@ class talk-production::config {
 
   file { '/etc/ssl/certs/filecache-cert.pem':
     ensure  => present,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/talk-production/ssl/filecache-cert.pem',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
@@ -57,6 +65,8 @@ class talk-production::config {
 
   file { '/etc/ssl/private/filecache-key.pem':
     ensure  => present,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/talk-production/ssl/filecache-key.pem',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
@@ -64,6 +74,8 @@ class talk-production::config {
 
   file { '/etc/ssl/certs/server-cert.pem':
     ensure  => present,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/talk-production/ssl/server-cert.pem',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
@@ -71,6 +83,8 @@ class talk-production::config {
 
   file { '/etc/ssl/private/server-key.pem':
     ensure  => present,
+    owner   => 'root',
+    group   => 'root',
     source  => 'puppet:///modules/talk-production/ssl/server-key.pem',
     require => Exec['/root/nginx-install/install.sh'],
     notify  => Service['nginx'],
@@ -83,27 +97,35 @@ class talk-production::config {
 
   # talkserver configuration
   file { '/etc/init/talkserver.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/talk-production/talkserver/talkserver.conf',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/talk-production/talkserver/talkserver.conf',
   }
 
   file { '/etc/sysctl.d/60-talkserver.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/talk-production/talkserver/sysctl.conf',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/talk-production/talkserver/sysctl.conf',
   }
 
   # filecache configuration
   file { '/etc/init/filecache.conf':
-    ensure  => present,
-    source  => 'puppet:///modules/talk-production/filecache/filecache.conf',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/talk-production/filecache/filecache.conf',
   }
 
 
   # filecache restart script
   file { '/root/restart_filecache.sh':
-    ensure  => present,
-    mode    => '0755',
-    source  => 'puppet:///modules/talk-production/filecache/restart_filecache.sh',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/talk-production/filecache/restart_filecache.sh',
   }
 
   file { 'restart_filecache':
@@ -119,15 +141,19 @@ class talk-production::config {
 
   # backup scripts
   file { '/etc/cron.daily/postgres':
-    ensure  => present,
-    mode    => '0755',
-    source  => 'puppet:///modules/talk-production/cron/postgres',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/talk-production/cron/postgres',
   }
 
   file { '/etc/cron.daily/mongodb':
-    ensure  => present,
-    mode    => '0755',
-    source  => 'puppet:///modules/talk-production/cron/mongodb',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/talk-production/cron/mongodb',
   }
 
 }
