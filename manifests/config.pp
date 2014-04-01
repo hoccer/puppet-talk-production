@@ -121,11 +121,11 @@ class talk-production::config {
 
   # filecache restart script
   file { '/root/restart_filecache.sh':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0755',
-    source => 'puppet:///modules/talk-production/filecache/restart_filecache.sh',
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('talk-production/filecache/restart_filecache.sh.erb'),
   }
 
   file { 'restart_filecache':
