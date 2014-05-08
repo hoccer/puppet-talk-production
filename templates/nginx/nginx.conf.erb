@@ -96,7 +96,7 @@ http {
     # legacy talkserver
     server {
         listen 443;
-        server_name server.talk.hoccer.de <%= @talkserver_fqdn %>;
+        server_name server.talk.hoccer.de <%= @fqdn %> <%= @talkserver_fqdn %>;
 
         root html;
         index index.html index.html;
