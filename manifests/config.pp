@@ -54,42 +54,6 @@ class talk-production::config {
     notify  => Service['nginx'],
   }
 
-  file { '/etc/ssl/certs/filecache-cert.pem':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    source  => 'puppet:///modules/talk-production/ssl/filecache-cert.pem',
-    require => Exec['/root/nginx-install/install.sh'],
-    notify  => Service['nginx'],
-  }
-
-  file { '/etc/ssl/private/filecache-key.pem':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    source  => 'puppet:///modules/talk-production/ssl/filecache-key.pem',
-    require => Exec['/root/nginx-install/install.sh'],
-    notify  => Service['nginx'],
-  }
-
-  file { '/etc/ssl/certs/server-cert.pem':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    source  => 'puppet:///modules/talk-production/ssl/server-cert.pem',
-    require => Exec['/root/nginx-install/install.sh'],
-    notify  => Service['nginx'],
-  }
-
-  file { '/etc/ssl/private/server-key.pem':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    source  => 'puppet:///modules/talk-production/ssl/server-key.pem',
-    require => Exec['/root/nginx-install/install.sh'],
-    notify  => Service['nginx'],
-  }
-
   service { 'nginx':
     ensure => running,
   }
