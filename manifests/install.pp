@@ -36,7 +36,7 @@ class talk-production::install {
 
   # additional packages
   package { ['pwgen', 'dpkg-dev', 'debhelper', 'libpcre3-dev', 'libxslt1-dev',
-    'libgd2-noxpm', 'libgd2-noxpm-dev', 'libgeoip-dev', 'libpam0g-dev',
+    'libgd2-noxpm-dev', 'libgeoip-dev', 'libpam0g-dev',
     'libluajit-5.1-dev', 'libperl-dev', 'autotools-dev', 'liblua5.1-0-dev',
     'libmhash-dev', 'libssl-dev', 'libexpat1-dev']:
     ensure => installed;
