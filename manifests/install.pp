@@ -111,7 +111,7 @@ class talk-production::install {
 
   # include helper modules
   include postgresql::server
-  include java7
+  include java
   include vim
   include rvm
   include ntp
