@@ -101,17 +101,19 @@ class talk-production::install {
     servers => [ 'pool.ntp.org' ],
   }
 
-  class { 'rvm':
+  include rvm
+
+  rvm_system_ruby {
     'ruby-2.0.0-p353':
       ensure      => 'present',
-      default_use => false;
+      default_use => true;
   }
 
   # riemann-net & riemann-health
   class { 'riemann::tools':
     host            => 'monitoring-server.hoccer.de',
     rvm_ruby_string => 'ruby-2.0.0-p353',
-    require => Class['rvm'],
+    require => Rvm_system_ruby['ruby-2.0.0-p353'],
   }
 
 
@@ -121,4 +123,3 @@ class talk-production::install {
   include vim
   include ntp
 }
-
