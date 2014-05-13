@@ -102,7 +102,9 @@ class talk-production::install {
   }
 
   class { 'rvm':
-    version => '2.0.0-p353',
+    'ruby-2.0.0-p353':
+      ensure      => 'present',
+      default_use => false;
   }
 
   # riemann-net & riemann-health
