@@ -16,7 +16,7 @@ http {
     keepalive_timeout  3600;
     proxy_read_timeout 3600;
 
-    upstream filecache.talk.hoccer.de {
+    upstream <%= @filecache_fqdn %> {
         server 127.0.0.1:7002 weight=5;
         server 127.0.0.2:7002 weight=5;
         server 127.0.0.3:7002 weight=5;
@@ -35,7 +35,7 @@ http {
         server 127.0.0.16:7002 weight=5;
     }
 
-    upstream server.talk.hoccer.de {
+    upstream <%= @talkserver_fqdn %> {
         server 127.0.0.1:7001 weight=5;
         server 127.0.0.2:7001 weight=5;
         server 127.0.0.3:7001 weight=5;
@@ -57,7 +57,7 @@ http {
     # legacy filecache
     server {
         listen 443;
-        server_name filecache.talk.hoccer.de <%= @filecache_fqdn %>;
+        server_name <%= @filecache_fqdn %>;
 
         root html;
         index index.html index.html;
@@ -69,8 +69,8 @@ http {
         keepalive_timeout 0;
 
         ssl on;
-        ssl_certificate /etc/ssl/certs/filecache-cert.pem;
-        ssl_certificate_key /etc/ssl/private/filecache-key.pem;
+        ssl_certificate <%= @filecache_cert %>;
+        ssl_certificate_key <%= @filecache_key %>;
         ssl_session_cache shared:SSL:10m;
         ssl_session_timeout 60m;
 
@@ -79,7 +79,7 @@ http {
         proxy_request_buffering off;
 
         location / {
-            proxy_pass http://filecache.talk.hoccer.de;
+            proxy_pass http://<%= @filecache_fqdn %>;
             proxy_http_version 1.1;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto https;
@@ -96,7 +96,7 @@ http {
     # legacy talkserver
     server {
         listen 443;
-        server_name server.talk.hoccer.de <%= @fqdn %> <%= @talkserver_fqdn %>;
+        server_name <%= @talkserver_fqdn %>;
 
         root html;
         index index.html index.html;
@@ -105,13 +105,13 @@ http {
         error_log /var/log/nginx/error_443.log;
 
         ssl on;
-        ssl_certificate /etc/ssl/certs/server-cert.pem;
-        ssl_certificate_key /etc/ssl/private/server-key.pem;
+        ssl_certificate talkserver_cert;
+        ssl_certificate_key talkserver_key;
         ssl_session_cache shared:SSL:10m;
         ssl_session_timeout 60m;
 
         location / {
-            proxy_pass http://server.talk.hoccer.de;
+            proxy_pass http://<%= @talkserver_fqdn %>;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
@@ -138,13 +138,13 @@ http {
         error_log /var/log/nginx/error_filecache_8444.log;
 
         ssl on;
-        ssl_certificate /etc/ssl/certs/filecache.talk.hoccer.de.crt;
-        ssl_certificate_key /etc/ssl/private/filecache.talk.hoccer.de.key;
+        ssl_certificate <%= @filecache_cert %>;
+        ssl_certificate_key <%= @filecache_key %>;
         ssl_session_cache shared:SSL:10m;
         ssl_session_timeout 60m;
 
         location / {
-            proxy_pass http://filecache.talk.hoccer.de;
+            proxy_pass http://<%= @filecache_fqdn %>;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
@@ -171,13 +171,13 @@ http {
         error_log /var/log/nginx/error_talkserver_8443.log;
 
         ssl on;
-        ssl_certificate /etc/ssl/certs/talkserver.talk.hoccer.de.crt;
-        ssl_certificate_key /etc/ssl/private/talkserver.talk.hoccer.de.key;
+        ssl_certificate <%= @talkserver_cert %>;
+        ssl_certificate_key <%= @talkserver_key %>;
         ssl_session_cache shared:SSL:10m;
         ssl_session_timeout 60m;
 
         location / {
-            proxy_pass http://server.talk.hoccer.de;
+            proxy_pass http://<%= @talkserver_fqdn %>;
             proxy_http_version 1.1;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection "upgrade";
