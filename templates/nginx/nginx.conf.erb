@@ -15,6 +15,7 @@ http {
 
     keepalive_timeout  3600;
     proxy_read_timeout 3600;
+    server_names_hash_bucket_size 64;
 
     upstream <%= @filecache_fqdn %> {
         server 127.0.0.1:7002 weight=5;
