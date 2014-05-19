@@ -59,7 +59,7 @@ http {
     # legacy talkserver
     server {
         listen 443;
-        server_name <%= @fqdn %> <%= @talkserver_fqdn %>;
+        server_name <%= @legacy_talkserver_fqdn %>;
 
         root html;
         index index.html index.html;
@@ -126,7 +126,7 @@ http {
     # legacy filecache
     server {
         listen 443;
-        server_name <%= @filecache_fqdn %>;
+        server_name <%= @legacy_filecache_fqdn %>;
 
         root html;
         index index.html index.html;
