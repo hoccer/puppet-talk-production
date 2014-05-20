@@ -173,6 +173,9 @@ http {
         access_log /var/log/nginx/access_filecache_<%= @filecache_port %>.log;
         error_log /var/log/nginx/error_filecache_<%= @filecache_port %>.log;
 
+        client_max_body_size 0;
+        keepalive_timeout 0;
+
         ssl on;
         ssl_certificate <%= @filecache_cert %>;
         ssl_certificate_key <%= @filecache_key %>;
