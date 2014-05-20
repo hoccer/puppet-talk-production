@@ -58,14 +58,14 @@ http {
 
     # legacy talkserver
     server {
-        listen 443;
+        listen <%= @legacy_talkserver_port %>;
         server_name <%= @legacy_talkserver_fqdn %>;
 
         root html;
         index index.html index.html;
 
-        access_log /var/log/nginx/access_443.log;
-        error_log /var/log/nginx/error_443.log;
+        access_log /var/log/nginx/access_<%= @legacy_talkserver_port %>.log;
+        error_log /var/log/nginx/error_<%= @legacy_talkserver_port %>.log;
 
         ssl on;
         ssl_certificate <%= @legacy_talkserver_cert %>;
@@ -91,14 +91,14 @@ http {
 
     # talkserver with new certificate
     server {
-        listen 8443;
+        listen <%= @talkserver_port %>;
         server_name <%= @talkserver_fqdn %>;
 
         root html;
         index index.html index.html;
 
-        access_log /var/log/nginx/access_talkserver_8443.log;
-        error_log /var/log/nginx/error_talkserver_8443.log;
+        access_log /var/log/nginx/access_talkserver_<%= @talkserver_port %>.log;
+        error_log /var/log/nginx/error_talkserver_<%= @talkserver_port %>.log;
 
         ssl on;
         ssl_certificate <%= @talkserver_cert %>;
@@ -125,14 +125,14 @@ http {
 
     # legacy filecache
     server {
-        listen 443;
+        listen <%= @legacy_filecache_port %>;
         server_name <%= @legacy_filecache_fqdn %>;
 
         root html;
         index index.html index.html;
 
-        access_log /var/log/nginx/access_443.log;
-        error_log /var/log/nginx/error_443.log;
+        access_log /var/log/nginx/access_<%= @legacy_filecache_port %>.log;
+        error_log /var/log/nginx/error_<%= @legacy_filecache_port %>.log;
 
         client_max_body_size 0;
         keepalive_timeout 0;
@@ -164,14 +164,14 @@ http {
 
     # filecache with new certificate
     server {
-        listen 8444;
+        listen <%= @filecache_port %>;
         server_name <%= @filecache_fqdn %>;
 
         root html;
         index index.html index.html;
 
-        access_log /var/log/nginx/access_filecache_8444.log;
-        error_log /var/log/nginx/error_filecache_8444.log;
+        access_log /var/log/nginx/access_filecache_<%= @filecache_port %>.log;
+        error_log /var/log/nginx/error_filecache_<%= @filecache_port %>.log;
 
         ssl on;
         ssl_certificate <%= @filecache_cert %>;
