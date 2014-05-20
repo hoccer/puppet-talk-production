@@ -29,7 +29,7 @@ class { 'talk-production':
   filecache_cert         => /etc/ssl/certs/filecache.crt,
   filecache_key          => /etc/ssl/private/filecache.key,
   legacy_filecache_fqdn  => filecache.talk.hoccer.de,
-  legacy_ilecache_port   => 443,
+  legacy_filecache_port  => 443,
   legacy_filecache_cert  => /etc/ssl/certs/legacy_filecache.crt,
   legacy_filecache_key   => /etc/ssl/private/legacy_filecache.key,
 }
