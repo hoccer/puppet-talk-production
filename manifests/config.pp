@@ -1,7 +1,8 @@
 class talk-production::config {
   
   class { 'locales':
-    locales => ['en_US.UTF-8 UTF-8']
+    default_locale => 'en_US.UTF-8',
+    locales        => ['en_US.UTF-8 UTF-8'],
   }
 
   include locales
