@@ -56,39 +56,6 @@ http {
     }
 
 
-    # legacy talkserver
-    server {
-        listen <%= @legacy_talkserver_port %>;
-        server_name <%= @legacy_talkserver_fqdn %>;
-
-        root html;
-        index index.html index.html;
-
-        access_log /var/log/nginx/access_<%= @legacy_talkserver_port %>.log;
-        error_log /var/log/nginx/error_<%= @legacy_talkserver_port %>.log;
-
-        ssl on;
-        ssl_certificate <%= @legacy_talkserver_cert %>;
-        ssl_certificate_key <%= @legacy_talkserver_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
-
-        location / {
-            proxy_pass http://talkserver_backend;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Host $host;
-
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto https;
-
-            proxy_redirect off;
-            proxy_buffering off;
-        }
-    }
-
     # talkserver with new certificate
     server {
         listen <%= @talkserver_port %>;
@@ -122,45 +89,6 @@ http {
         }
     }
 
-
-    # legacy filecache
-    server {
-        listen <%= @legacy_filecache_port %>;
-        server_name <%= @legacy_filecache_fqdn %>;
-
-        root html;
-        index index.html index.html;
-
-        access_log /var/log/nginx/access_<%= @legacy_filecache_port %>.log;
-        error_log /var/log/nginx/error_<%= @legacy_filecache_port %>.log;
-
-        client_max_body_size 0;
-        keepalive_timeout 0;
-
-        ssl on;
-        ssl_certificate <%= @legacy_filecache_cert %>;
-        ssl_certificate_key <%= @legacy_filecache_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
-
-        proxy_buffering off;
-        proxy_redirect off;
-        proxy_request_buffering off;
-
-        location / {
-            proxy_pass http://filecache_backend;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Host $host;
-
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto https;
-
-            proxy_redirect off;
-        }
-    }
 
     # filecache with new certificate
     server {
