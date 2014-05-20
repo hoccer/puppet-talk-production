@@ -105,8 +105,7 @@ class talk-production::install {
 
   rvm_system_ruby {
     'ruby-2.0.0-p353':
-      ensure      => 'present',
-      default_use => true;
+      ensure => 'present',
   }
 
   # riemann-net & riemann-health
