@@ -22,22 +22,20 @@ define line($file, $line, $ensure = 'present') {
 
 
 class { 'talk-production':
-  talkserver_fqdn        => 'test1.talk.hoccer.de',
-  talkserver_port        => 8443,
-  talkserver_cert        => '/etc/ssl/certs/talkserver.talk.hoccer.de.crt',
-  talkserver_key         => '/etc/ssl/private/talkserver.talk.hoccer.de.key',
-  legacy_talkserver_fqdn => 'server.talk.hoccer.de',
-  legacy_talkserver_port => 443,
-  legacy_talkserver_cert => '/etc/ssl/certs/server-cert.pem',
-  legacy_talkserver_key  => '/etc/ssl/private/server-key.pem',
-  filecache_fqdn         => 'filecache-test1.talk.hoccer.de',
-  filecache_port         => 8444,
-  filecache_cert         => '/etc/ssl/certs/filecache.talk.hoccer.de.crt',
-  filecache_key          => '/etc/ssl/private/filecache.talk.hoccer.de.key',
-  legacy_filecache_fqdn  => 'filecache.talk.hoccer.de',
-  legacy_filecache_port  => 443,
-  legacy_filecache_cert  => '/etc/ssl/certs/filecache-cert.pem',
-  legacy_filecache_key   => '/etc/ssl/private/filecache-key.pem',
+  primary_talkserver_fqdn      => 'test1.talk.hoccer.de',
+  primary_talkserver_port      => 8443,
+  primary_talkserver_cert      => '/etc/ssl/certs/talkserver.talk.hoccer.de.crt',
+  primary_talkserver_key       => '/etc/ssl/private/talkserver.talk.hoccer.de.key',
+  primary_talkserver_backend   => 'talkserver_backend',
+  secondary_talkserver_fqdn    => 'test1.talk.hoccer.de',
+  secondary_talkserver_port    => 443,
+  secondary_talkserver_cert    => '/etc/ssl/certs/talkserver.talk.hoccer.de.crt',
+  secondary_talkserver_key     => '/etc/ssl/private/talkserver.talk.hoccer.de.key',
+  secondary_talkserver_backend => 'review_talkserver_backend',
+  filecache_fqdn               => 'filecache-test1.talk.hoccer.de',
+  filecache_port               => 8444,
+  filecache_cert               => '/etc/ssl/certs/filecache.talk.hoccer.de.crt',
+  filecache_key                => '/etc/ssl/private/filecache.talk.hoccer.de.key',
 }
 
 include backuppc-client
