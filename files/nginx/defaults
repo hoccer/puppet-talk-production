@@ -1,3 +1,12 @@
+###############################################################################
+#                                                                             #
+# This file is managed by Puppet. While it can still be managed manually, it  #
+# is definitely not recommended.                                              #
+#                                                                             #
+# Source: puppet-talk-production/files/nginx/defaults                         #
+#                                                                             #
+###############################################################################
+
 # Note: You may want to look at the following page before setting the ULIMIT.
 #  http://wiki.nginx.org/CoreModule#worker_rlimit_nofile
 # Set the ulimit variable if you need defaults to change.

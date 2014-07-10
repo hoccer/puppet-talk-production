@@ -1,4 +1,12 @@
 #!/bin/bash
+###############################################################################
+#                                                                             #
+# This file is managed by Puppet. While it can still be managed manually, it  #
+# is definitely not recommended.                                              #
+#                                                                             #
+# Source: puppet-talk-production/templates/filecache/restart_filecache.sh.erb #
+#                                                                             #
+###############################################################################
 
 # check if upstart job was started
 /sbin/status filecache | grep running >/dev/null

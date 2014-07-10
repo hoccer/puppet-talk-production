@@ -1,4 +1,12 @@
 #!/bin/sh
+###############################################################################
+#                                                                             #
+# This file is managed by Puppet. While it can still be managed manually, it  #
+# is definitely not recommended.                                              #
+#                                                                             #
+# Source: puppet-talk-production/files/cron/mongodb                           #
+#                                                                             #
+###############################################################################
 
 # backup all mongodb data
 
