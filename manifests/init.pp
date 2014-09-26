@@ -12,7 +12,10 @@ class talk-production (
   $filecache_fqdn,
   $filecache_port,
   $filecache_cert,
-  $filecache_key
+  $filecache_key,
+  $invitation_server_fqdn,
+  $invitation_server_port,
+  $invitation_uri_scheme
 ) {
   include talk-production::install, talk-production::config
 }
