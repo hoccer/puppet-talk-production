@@ -1,0 +1,53 @@
+FORGE
+  remote: http://forge.puppetlabs.com
+  specs:
+    maestrodev/rvm (1.5.6)
+      puppetlabs/stdlib (>= 3.2.0)
+    maestrodev/wget (1.4.1)
+    puppetlabs/apt (1.4.2)
+      puppetlabs/stdlib (>= 2.2.1)
+    puppetlabs/concat (1.1.0)
+      puppetlabs/stdlib (>= 4.0.0)
+    puppetlabs/firewall (1.1.1)
+    puppetlabs/gcc (0.1.0)
+    puppetlabs/java (1.1.1)
+      puppetlabs/stdlib (>= 0.1.6)
+    puppetlabs/mongodb (0.7.0)
+      puppetlabs/apt (>= 1.0.0)
+      puppetlabs/stdlib (>= 2.2.0)
+    puppetlabs/nginx (99.99.99)
+      puppetlabs/stdlib (>= 0.1.6)
+    puppetlabs/ntp (3.0.3)
+      puppetlabs/stdlib (>= 0.1.6)
+    puppetlabs/postgresql (3.3.3)
+      puppetlabs/apt (< 2.0.0, >= 1.1.0)
+      puppetlabs/concat (< 2.0.0, >= 1.0.0)
+      puppetlabs/firewall (>= 0.0.4)
+      puppetlabs/stdlib (< 5.0.0, >= 3.2.0)
+    puppetlabs/stdlib (4.2.1)
+    saz/locales (2.1.0)
+    saz/vim (2.1.0)
+    stahnma/epel (0.0.6)
+
+GIT
+  remote: https://github.com/artcom/garethr-riemann.git
+  ref: master
+  sha: c9df7e0c6bc86670b8efeb8e57919aace82678a4
+  specs:
+    artcom/riemann (0.5.3)
+      maestrodev/wget (>= 0)
+      puppetlabs/gcc (>= 0)
+      puppetlabs/java (>= 0)
+      puppetlabs/stdlib (>= 0)
+      stahnma/epel (>= 0)
+
+DEPENDENCIES
+  artcom/riemann (>= 0)
+  maestrodev/rvm (>= 0)
+  puppetlabs/java (>= 0)
+  puppetlabs/mongodb (>= 0)
+  puppetlabs/nginx (>= 0)
+  puppetlabs/ntp (>= 0)
+  puppetlabs/postgresql (>= 0)
+  saz/locales (>= 0)
+  saz/vim (>= 0)
