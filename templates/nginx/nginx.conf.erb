@@ -187,6 +187,8 @@ http {
         ssl on;
         ssl_certificate <%= @invitation_server_cert %>;
         ssl_certificate_key <%= @invitation_server_key %>;
+        ssl_session_cache shared:SSL:10m;
+        ssl_session_timeout 60m;
 
         location / {
             proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= @invitation_uri_scheme %>$request_uri;
