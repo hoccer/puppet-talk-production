@@ -31,7 +31,7 @@ class { 'talk-production':
   secondary_talkserver_port    => 443,
   secondary_talkserver_cert    => '/etc/ssl/certs/talkserver.talk.hoccer.de.crt',
   secondary_talkserver_key     => '/etc/ssl/private/talkserver.talk.hoccer.de.key',
-  secondary_talkserver_backend => 'review_talkserver_backend',
+  secondary_talkserver_backend => 'talkserver_backend',
   filecache_fqdn               => 'filecache-test1.talk.hoccer.de',
   filecache_port               => 8444,
   filecache_cert               => '/etc/ssl/certs/filecache.talk.hoccer.de.crt',
