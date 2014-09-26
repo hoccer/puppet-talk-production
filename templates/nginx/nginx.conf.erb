@@ -176,6 +176,24 @@ http {
     }
 
 
+    # invitation landing page server
+    server {
+        listen <%= @invitation_server_port %>;
+        server_name <%= @invitation_server_fqdn %>;
+
+        access_log /var/log/nginx/access_invite_<%= @invitation_server_port %>.log;
+        error_log /var/log/nginx/error_invite_<%= @invitation_server_port %>.log;
+
+        location / {
+            proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= @invitation_uri_scheme %>$request_uri;
+        }
+
+        location /static/ {
+            proxy_pass http://<%= @primary_talkserver_backend %>;
+        }
+    }
+
+
     sendfile on;
     tcp_nopush on;
     tcp_nodelay on;

@@ -36,6 +36,9 @@ class { 'talk-production':
   filecache_port               => 8444,
   filecache_cert               => '/etc/ssl/certs/filecache.talk.hoccer.de.crt',
   filecache_key                => '/etc/ssl/private/filecache.talk.hoccer.de.key',
+  invitation_server_fqdn       => 'invite-test1.hoccer.com',
+  invitation_server_port       => 443,
+  invitation_uri_scheme        => 'hxod',
 }
 
 include backuppc-client
