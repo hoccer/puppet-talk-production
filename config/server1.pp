@@ -38,6 +38,8 @@ class { 'talk-production':
   filecache_key                => '/etc/ssl/private/filecache.talk.hoccer.de.key',
   invitation_server_fqdn       => 'invite.hoccer.com',
   invitation_server_port       => 443,
+  invitation_server_cert       => '/etc/ssl/certs/hoccer.com.crt',
+  invitation_server_key        => '/etc/ssl/private/hoccer.com.key',
   invitation_uri_scheme        => 'hxo',
 }
 

@@ -4,6 +4,7 @@ class talk-production ($primary_talkserver_fqdn, $primary_talkserver_port,
         $secondary_talkserver_port, $secondary_talkserver_cert,
         $secondary_talkserver_key, $secondary_talkserver_backend,
         $filecache_fqdn, $filecache_port, $filecache_cert, $filecache_key,
-        $invitation_server_fqdn, $invitation_server_port, $invitation_uri_scheme) {
+        $invitation_server_fqdn, $invitation_server_port,
+        $invitation_server_cert, $invitation_server_key, $invitation_uri_scheme) {
   include talk-production::install, talk-production::config
 }

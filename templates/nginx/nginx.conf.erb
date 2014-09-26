@@ -184,6 +184,10 @@ http {
         access_log /var/log/nginx/access_invite_<%= @invitation_server_port %>.log;
         error_log /var/log/nginx/error_invite_<%= @invitation_server_port %>.log;
 
+        ssl on;
+        ssl_certificate <%= @invitation_server_cert %>;
+        ssl_certificate_key <%= @invitation_server_key %>;
+
         location / {
             proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= @invitation_uri_scheme %>$request_uri;
         }
