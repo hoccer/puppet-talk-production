@@ -40,7 +40,7 @@ class { 'talk-production':
   invitation_server_port       => 443,
   invitation_server_cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
   invitation_server_key        => '/etc/ssl/private/hoccer.com.key',
-  invitation_uri_scheme        => 'hxo',
+  invitation_uri_scheme        => 'hcr',
 }
 
 include backuppc-client
