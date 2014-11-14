@@ -13,6 +13,7 @@
 date=`date +%u`
 dir=/srv/backup/mongodb
 
+mkdir -p $dir
 cd $dir || exit 1
 
 rm -rf dump-$date
