@@ -127,7 +127,7 @@ class talk-production::config {
     ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => '0755',
+    mode   => '0644',
     source => 'puppet:///modules/talk-production/logrotate/talkserver',
   }
 
@@ -135,7 +135,7 @@ class talk-production::config {
     ensure => present,
     owner  => 'root',
     group  => 'root',
-    mode   => '0755',
+    mode   => '0644',
     source => 'puppet:///modules/talk-production/logrotate/filecache',
   }
 
