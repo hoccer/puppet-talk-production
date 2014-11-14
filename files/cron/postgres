@@ -14,6 +14,7 @@ date=`date +%u`
 dir=/srv/backup/postgresql
 
 mkdir -p $dir
+chown postgres $dir
 cd $dir || exit 1
 
 su -c "pg_dumpall -o -f $dir/all_postgres_dbs-$date.sql" postgres \
