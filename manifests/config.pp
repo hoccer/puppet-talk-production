@@ -121,4 +121,23 @@ class talk-production::config {
     source => 'puppet:///modules/talk-production/cron/mongodb',
   }
 
+
+  # log rotation
+  file { '/etc/logrotate.d/talkserver':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/talk-production/logrotate/talkserver',
+  }
+
+  file { '/etc/logrotate.d/filecache':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => 'puppet:///modules/talk-production/logrotate/filecache',
+  }
+
+
 }
