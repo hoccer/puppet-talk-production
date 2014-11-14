@@ -25,6 +25,9 @@ if [ "$?" -eq "0" ]; then
   # handle unresolved host
   elif [ "$ret" -eq "6" ]; then
     echo "Filecache service can't be resolved. There might be a DNS problem." | mail -s "Hoccer: Filecache service can't be resolved." admins@hoccer.com
+  # handle success
+  elif [ "$ret" -eq "0" ]; then
+    exit 0
   # handle unknown error
   else
     echo "Filecache service has an unknown error. Return value of curl was $ret. See curl manpage." | mail -s "Hoccer: Filecache service has an unknown error." admins@hoccer.com
