@@ -18,9 +18,15 @@ if [ "$?" -eq "0" ]; then
   if [ "$ret" -eq "28" ]; then
     echo "Filecache service seems to hang. Restarting." | mail -s "Hoccer: Filecache service has been restarted." admins@hoccer.com
     /sbin/restart filecache
-  fi
+  # handle 4xx
+  elif [ "$ret" -eq "22" ]; then
+    echo "Filecache service can't handle status request. Restarting." | mail -s "Hoccer: Filecache service has been restarted." admins@hoccer.com
+    /sbin/restart filecache
+  # handle unresolved host
+  elif [ "$ret" -eq "6" ]; then
+    echo "Filecache service can't be resolved. There might be a DNS problem." | mail -s "Hoccer: Filecache service can't be resolved." admins@hoccer.com
   # handle unknown error
-  if [ "$ret" -ne "0" ]; then
+  else
     echo "Filecache service has an unknown error. Return value of curl was $ret. See curl manpage." | mail -s "Hoccer: Filecache service has an unknown error." admins@hoccer.com
   fi
 fi
