@@ -69,6 +69,15 @@ http {
     }
 
 
+    # generic ssl configuration
+    ssl on;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "HIGH:!aNULL:!MD5:!CAMELLIA:!3DES";
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 60m;
+
+
     # primary talkserver
     server {
         listen <%= @primary_talkserver_port %>;
@@ -80,11 +89,8 @@ http {
         access_log /var/log/nginx/access_talkserver_<%= @primary_talkserver_port %>.log;
         error_log /var/log/nginx/error_talkserver_<%= @primary_talkserver_port %>.log;
 
-        ssl on;
         ssl_certificate <%= @primary_talkserver_cert %>;
         ssl_certificate_key <%= @primary_talkserver_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
 
         location / {
             proxy_pass http://<%= @primary_talkserver_backend %>;
@@ -113,11 +119,8 @@ http {
         access_log /var/log/nginx/access_talkserver_<%= @secondary_talkserver_port %>.log;
         error_log /var/log/nginx/error_talkserver_<%= @secondary_talkserver_port %>.log;
 
-        ssl on;
         ssl_certificate <%= @secondary_talkserver_cert %>;
         ssl_certificate_key <%= @secondary_talkserver_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
 
         location / {
             proxy_pass http://<%= @secondary_talkserver_backend %>;
@@ -150,11 +153,8 @@ http {
         client_max_body_size 0;
         keepalive_timeout 0;
 
-        ssl on;
         ssl_certificate <%= @filecache_cert %>;
         ssl_certificate_key <%= @filecache_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
 
         proxy_buffering off;
         proxy_redirect off;
@@ -184,11 +184,8 @@ http {
         access_log /var/log/nginx/access_invite_<%= @invitation_server_port %>.log;
         error_log /var/log/nginx/error_invite_<%= @invitation_server_port %>.log;
 
-        ssl on;
         ssl_certificate <%= @invitation_server_cert %>;
         ssl_certificate_key <%= @invitation_server_key %>;
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
 
         location / {
             proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= @invitation_uri_scheme %>$request_uri;
