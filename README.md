@@ -24,7 +24,7 @@ Modify ~/puppet/modules/talk-production/config/server1.pp if required.
 Run Puppet (leave out '--noop') as user 'root' (bypass system Ruby-1.9.3):
 ```
 sudo -i
-cd home/deployment/puppet
+cd /home/deployment/puppet
 puppet apply --no-report --modulepath modules modules/talk-production/config/server1.pp --verbose --test --noop
 exit
 ```
