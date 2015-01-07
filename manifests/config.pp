@@ -124,19 +124,11 @@ class talk-production::config {
 
   # log rotation
   file { '/etc/logrotate.d/talkserver':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/talk-production/logrotate/talkserver',
+    ensure => absent,
   }
 
   file { '/etc/logrotate.d/filecache':
-    ensure => present,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0644',
-    source => 'puppet:///modules/talk-production/logrotate/filecache',
+    ensure => absent,
   }
 
 
