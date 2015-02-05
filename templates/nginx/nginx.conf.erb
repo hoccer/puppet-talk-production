@@ -176,25 +176,28 @@ http {
     }
 
 
-    # invitation landing page server
+    # invitation landing page servers
+    <% @invitation_servers.each do |server| -%>
+
     server {
-        listen <%= @invitation_server_port %>;
-        server_name <%= @invitation_server_fqdn %>;
+        listen <%= server['port'] %>;
+        server_name <%= server['fqdn'] %>;
 
-        access_log /var/log/nginx/access_invite_<%= @invitation_server_port %>.log;
-        error_log /var/log/nginx/error_invite_<%= @invitation_server_port %>.log;
+        access_log /var/log/nginx/access_invite_<%= server['port'] %>.log;
+        error_log /var/log/nginx/error_invite_<%= server['port'] %>.log;
 
-        ssl_certificate <%= @invitation_server_cert %>;
-        ssl_certificate_key <%= @invitation_server_key %>;
+        ssl_certificate <%= server['cert'] %>;
+        ssl_certificate_key <%= server['key'] %>;
 
         location / {
-            proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= @invitation_uri_scheme %>$request_uri;
+            proxy_pass http://<%= @primary_talkserver_backend %>/invite/<%= server['scheme'] %>$request_uri;
         }
 
         location /static/ {
             proxy_pass http://<%= @primary_talkserver_backend %>;
         }
     }
+    <% end -%>
 
 
     sendfile on;

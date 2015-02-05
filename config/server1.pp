@@ -36,11 +36,22 @@ class { 'talk-production':
   filecache_port               => 8444,
   filecache_cert               => '/etc/ssl/certs/filecache.talk.hoccer.de.crt',
   filecache_key                => '/etc/ssl/private/filecache.talk.hoccer.de.key',
-  invitation_server_fqdn       => 'invite.hoccer.com',
-  invitation_server_port       => 443,
-  invitation_server_cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
-  invitation_server_key        => '/etc/ssl/private/hoccer.com.key',
-  invitation_uri_scheme        => 'hcr',
+  invitation_servers           => [
+    {
+      fqdn       => 'invite.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'hcr',
+    },
+    {
+      fqdn       => 'stroeer.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'strm',
+    },
+  ],
 }
 
 include backuppc-client
