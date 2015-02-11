@@ -45,6 +45,13 @@ class { 'talk-production':
       scheme     => 'hcrd',
     },
     {
+      fqdn       => 'simsme-test1.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'simsmed',
+    },
+    {
       fqdn       => 'stroeer-test1.hoccer.com',
       port       => 443,
       cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
