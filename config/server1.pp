@@ -45,6 +45,13 @@ class { 'talk-production':
       scheme     => 'hcr',
     },
     {
+      fqdn       => 'hoccme.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'hoccme',
+    },
+    {
       fqdn       => 'simsme.hoccer.com',
       port       => 443,
       cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
