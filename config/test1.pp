@@ -56,7 +56,7 @@ class { 'talk-production':
       port       => 443,
       cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
       key        => '/etc/ssl/private/hoccer.com.key',
-      scheme     => 'simsmed',
+      scheme     => 'hcrsmsd',
     },
     {
       fqdn       => 'stroeer-test1.hoccer.com',
