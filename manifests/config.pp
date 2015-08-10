@@ -84,6 +84,26 @@ class talk-production::config {
   }
 
 
+  # talkserver restart script
+  file { '/root/restart_talkserver.sh':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0755',
+    content => template('talk-production/talkserver/restart_talkserver.sh.erb'),
+  }
+
+  file { 'restart_talkserver':
+    path    => '/etc/cron.d/restart_talkserver',
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => 0644,
+    require => File['/root/restart_talkserver.sh'],
+    content => "* * * * * root /root/restart_talkserver.sh\n";
+  }
+
+
   # filecache restart script
   file { '/root/restart_filecache.sh':
     ensure  => present,

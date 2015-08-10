@@ -1,0 +1,35 @@
+#!/bin/bash
+#################################################################################
+#                                                                               #
+# This file is managed by Puppet. While it can still be managed manually, it    #
+# is definitely not recommended.                                                #
+#                                                                               #
+# Source: puppet-talk-production/templates/talkserver/restart_talkserver.sh.erb #
+#                                                                               #
+#################################################################################
+
+# check if upstart job was started
+/sbin/status talkserver | grep running >/dev/null
+
+if [ "$?" -eq "0" ]; then
+  curl -k -s -f -m 10 https://<%= @primary_talkserver_fqdn %>:<%= @primary_talkserver_port %>/status >/dev/null
+  ret=$?
+  # handle timeout
+  if [ "$ret" -eq "28" ]; then
+    echo "Talkserver service seems to hang. Restarting." | mail -s "Hoccer: Talkserver service has been restarted." admins@hoccer.com
+    /sbin/restart talkserver
+  # handle 4xx
+  elif [ "$ret" -eq "22" ]; then
+    echo "Talkserver service can't handle status request. Restarting." | mail -s "Hoccer: Talkserver service has been restarted." admins@hoccer.com
+    /sbin/restart talkserver
+  # handle unresolved host
+  elif [ "$ret" -eq "6" ]; then
+    echo "Talkserver service can't be resolved. There might be a DNS problem." | mail -s "Hoccer: Talkserver service can't be resolved." admins@hoccer.com
+  # handle success
+  elif [ "$ret" -eq "0" ]; then
+    exit 0
+  # handle unknown error
+  else
+    echo "Talkserver service has an unknown error. Return value of curl was $ret. See curl manpage." | mail -s "Hoccer: Talkserver service has an unknown error." admins@hoccer.com
+  fi
+fi
