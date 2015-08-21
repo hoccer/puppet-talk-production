@@ -47,15 +47,9 @@ class talk-production::install {
   file { '/etc/apt/sources.list.d/nginx.list':
     owner   => 'root',
     group   => 'root',
-    content => 'deb http://nginx.org/packages/ubuntu/ precise nginx
+    content => 'deb http://nginx.org/packages/mainline/ubuntu/ precise nginx
 ',
-    notify  => Exec['uninstall_old_nginx', 'add_nginx_key'],
-  }
-
-  exec { 'aptitude purge -y nginx nginx-common nginx-doc nginx-full':
-    path        => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
-    refreshonly => true,
-    alias       => 'uninstall_old_nginx',
+    notify  => Exec['add_nginx_key'],
   }
 
   exec { 'curl http://nginx.org/keys/nginx_signing.key | apt-key add -':
@@ -72,7 +66,7 @@ class talk-production::install {
   }
 
   package { 'nginx':
-    ensure  => installed,
+    ensure  => latest,
     require => File['/etc/apt/sources.list.d/nginx.list']
   }
 
