@@ -34,7 +34,7 @@ class talk-production::config {
     owner   => 'root',
     group   => 'root',
     content => template('talk-production/nginx/nginx.conf.erb'),
-    require => Exec['/root/nginx-install/install.sh'],
+    require => Package['nginx'],
     notify  => Service['nginx'],
   }
 
@@ -42,7 +42,7 @@ class talk-production::config {
     ensure  => absent,
     owner   => 'root',
     group   => 'root',
-    require => Exec['/root/nginx-install/install.sh'],
+    require => Package['nginx'],
     notify  => Service['nginx'],
   }
 
@@ -51,7 +51,7 @@ class talk-production::config {
     owner   => 'root',
     group   => 'root',
     source  => 'puppet:///modules/talk-production/nginx/defaults',
-    require => Exec['/root/nginx-install/install.sh'],
+    require => Package['nginx'],
     notify  => Service['nginx'],
   }
 

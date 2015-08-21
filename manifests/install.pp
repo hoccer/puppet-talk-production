@@ -44,55 +44,36 @@ class talk-production::install {
 
 
   # Nginx
-  # see https://github.com/hoccer/vagrant-appliance/wiki/Nginx-setup
-  file { '/root/nginx-install':
-    ensure => directory,
-    owner  => 'root',
-    group  => 'root',
-  }
-
-  file { '/root/nginx-install/install.sh':
-    source  => 'puppet:///modules/talk-production/nginx/install.sh',
+  file { '/etc/apt/sources.list.d/nginx.list':
     owner   => 'root',
     group   => 'root',
-    require => File['/root/nginx-install'],
+    content => 'deb http://nginx.org/packages/ubuntu/ precise nginx
+',
+    notify  => Exec['uninstall_old_nginx', 'add_nginx_key'],
   }
 
-  file { '/root/nginx-install/nginx-1.3.14-no_buffer-v7.patch':
-    source => 'puppet:///modules/talk-production/nginx/nginx-1.3.14-no_buffer-v7.patch',
-    owner   => 'root',
-    group   => 'root',
-    require => File['/root/nginx-install'],
+  exec { 'aptitude purge -y nginx nginx-common nginx-doc nginx-full':
+    path        => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    refreshonly => true,
+    alias       => 'uninstall_old_nginx',
   }
 
-  file { '/root/nginx-install/nginx_1.4.1-1.debian.tar.gz':
-    source => 'puppet:///modules/talk-production/nginx/nginx_1.4.1-1.debian.tar.gz',
-    owner   => 'root',
-    group   => 'root',
-    require => File['/root/nginx-install'],
+  exec { 'curl http://nginx.org/keys/nginx_signing.key | apt-key add -':
+    path        => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    refreshonly => true,
+    alias       => 'add_nginx_key',
+    notify      => Exec['aptitude_update'],
   }
 
-  file { '/root/nginx-install/nginx_1.4.1-1.dsc':
-    source => 'puppet:///modules/talk-production/nginx/nginx_1.4.1-1.dsc',
-    owner   => 'root',
-    group   => 'root',
-    require => File['/root/nginx-install'],
+  exec { 'aptitude update':
+    path        => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
+    refreshonly => true,
+    alias       => 'aptitude_update',
   }
 
-  file { '/root/nginx-install/nginx_1.4.1.orig.tar.gz':
-    source => 'puppet:///modules/talk-production/nginx/nginx_1.4.1.orig.tar.gz',
-    owner   => 'root',
-    group   => 'root',
-    require => File['/root/nginx-install'],
-  }
-
-  exec { '/root/nginx-install/install.sh':
-    require => [File['/root/nginx-install', '/root/nginx-install/install.sh', '/root/nginx-install/nginx-1.3.14-no_buffer-v7.patch', 
-      '/root/nginx-install/nginx_1.4.1-1.debian.tar.gz', '/root/nginx-install/nginx_1.4.1-1.dsc', '/root/nginx-install/nginx_1.4.1.orig.tar.gz'],
-      Package['dpkg-dev', 'debhelper', 'libpcre3-dev', 'libxslt1-dev', 'libgd2-noxpm-dev', 'libgeoip-dev', 'libpam0g-dev',
-    'libluajit-5.1-dev', 'libperl-dev', 'autotools-dev', 'liblua5.1-0-dev', 'libmhash-dev', 'libssl-dev', 'libexpat1-dev']],
-    path => '/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin',
-    creates => "/root/nginx-install/nginx-full_1.4.1-1_amd64.deb",
+  package { 'nginx':
+    ensure  => installed,
+    require => File['/etc/apt/sources.list.d/nginx.list']
   }
 
 
