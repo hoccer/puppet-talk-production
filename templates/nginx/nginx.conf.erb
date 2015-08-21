@@ -69,6 +69,14 @@ http {
     }
 
 
+    # global SSL configuration
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers "HIGH:!aNULL:!MD5:!CAMELLIA:!3DES";
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 60m;
+
+
     # primary talkserver
     server {
         listen <%= @primary_talkserver_port %>;
@@ -81,11 +89,6 @@ http {
         error_log /var/log/nginx/error_talkserver_<%= @primary_talkserver_port %>.log;
 
         ssl on;
-        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        ssl_prefer_server_ciphers on;
-        ssl_ciphers "HIGH:!aNULL:!MD5:!CAMELLIA:!3DES";
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
         ssl_certificate <%= @primary_talkserver_cert %>;
         ssl_certificate_key <%= @primary_talkserver_key %>;
 
@@ -118,11 +121,6 @@ http {
         error_log /var/log/nginx/error_talkserver_<%= @secondary_talkserver_port %>.log;
 
         ssl on;
-        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        ssl_prefer_server_ciphers on;
-        ssl_ciphers "HIGH:!aNULL:!MD5:!CAMELLIA:!3DES";
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
         ssl_certificate <%= @secondary_talkserver_cert %>;
         ssl_certificate_key <%= @secondary_talkserver_key %>;
 
@@ -159,11 +157,6 @@ http {
         keepalive_timeout 0;
 
         ssl on;
-        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-        ssl_prefer_server_ciphers on;
-        ssl_ciphers "HIGH:!aNULL:!MD5:!CAMELLIA:!3DES";
-        ssl_session_cache shared:SSL:10m;
-        ssl_session_timeout 60m;
         ssl_certificate <%= @filecache_cert %>;
         ssl_certificate_key <%= @filecache_key %>;
 
@@ -195,6 +188,7 @@ http {
         access_log /var/log/nginx/access_invite_<%= server['port'] %>.log;
         error_log /var/log/nginx/error_invite_<%= server['port'] %>.log;
 
+        ssl on;
         ssl_certificate <%= server['cert'] %>;
         ssl_certificate_key <%= server['key'] %>;
 
