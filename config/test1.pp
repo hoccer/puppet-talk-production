@@ -72,6 +72,13 @@ class { 'talk-production':
       key        => '/etc/ssl/private/hoccer.com.key',
       scheme     => 'starmeod',
     },
+    {
+      fqdn       => 'helios-test1.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'helid',
+    },
   ],
 }
 
@@ -80,4 +87,3 @@ include deployment-user
 include nrpe
 include admin-user
 include talk-production
-
