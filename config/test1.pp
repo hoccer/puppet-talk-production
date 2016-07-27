@@ -79,6 +79,13 @@ class { 'talk-production':
       key        => '/etc/ssl/private/hoccer.com.key',
       scheme     => 'helid',
     },
+    {
+      fqdn       => 'uniheld-test1.hoccer.com',
+      port       => 443,
+      cert       => '/etc/ssl/certs/hoccer.com.chained.crt',
+      key        => '/etc/ssl/private/hoccer.com.key',
+      scheme     => 'unhldd',
+    },
   ],
 }
 
